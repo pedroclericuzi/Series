@@ -84,10 +84,11 @@ public class Main {
         return images;
     }
 
-    static JsonArray listToJson(ArrayList<Info> list){
+    static String listToJson(ArrayList<Info> list){
         Gson gson = new GsonBuilder().create();
         JsonArray myCustomArray = gson.toJsonTree(list).getAsJsonArray();
-        return myCustomArray;
+        String myArr = myCustomArray.toString();
+        return myArr;
     }
 
 }
