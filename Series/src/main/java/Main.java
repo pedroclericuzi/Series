@@ -1,3 +1,6 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import org.apache.log4j.BasicConfigurator;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +24,7 @@ public class Main {
         port(getAssignedPort());
         String conteudo = fileDownload("http://api.tvmaze.com/shows");
         ArrayList<Info> arrayList = parseConteudo(conteudo);
-        get("/getImages", (req, res) -> arrayList);
+        get("/getImages", (req, res) -> listToJson(arrayList));
     }
 
     static int getAssignedPort() {
@@ -79,6 +82,12 @@ public class Main {
             e.printStackTrace();
         }
         return images;
+    }
+
+    static JsonArray listToJson(ArrayList<Info> list){
+        Gson gson = new GsonBuilder().create();
+        JsonArray myCustomArray = gson.toJsonTree(list).getAsJsonArray();
+        return myCustomArray;
     }
 
 }
